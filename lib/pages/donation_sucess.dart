@@ -17,10 +17,10 @@ class DonationSuccessScreen extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Image.asset(
-              'assets/success.png', // Ensure this image is added in assets
-              height: 200,
-            ),
+            // Image.asset(
+            //   'assets/success.png', // Ensure this image is added in assets
+            //   height: 200,
+            // ),
             SizedBox(height: 20),
             Text(
               "Your donation is successful",

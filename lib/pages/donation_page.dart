@@ -1,119 +1,103 @@
 import 'package:flutter/material.dart';
 
-void main() {
-  runApp(MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: DonationsPage(),
-    );
-  }
-}
-
 class DonationsPage extends StatelessWidget {
-  final List<Map<String, String>> donations = [
-    {
-      "date": "Mar 24, 2025",
-      "serves": "4",
-      "category": "Veg",
-      "description": "dal chawal",
-      "confirmedBy": "Sheril",
-    }
-  ];
+  final Map<String, String> donation = {
+    "date": "Mar 24, 2025",
+    "serves": "4",
+    "category": "Veg",
+    "description": "Dal Chawal",
+    "confirmedBy": "Sheril",
+  };
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
+        title: const Text(
           "Food2Charity",
           style: TextStyle(fontStyle: FontStyle.italic),
         ),
         backgroundColor: Colors.black,
-        leading: IconButton(
-          icon: Icon(Icons.menu),
-          onPressed: () {},
-        ),
+        leading: IconButton(icon: const Icon(Icons.menu), onPressed: () {}),
       ),
-      body: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Align(
-              alignment: Alignment.centerLeft,
-              child: Text(
-                "Your Donations:",
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+      body: Padding(
+        padding: const EdgeInsets.all(10.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Text(
+              "Your Donation:",
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 10),
+            Container(
+              padding: const EdgeInsets.all(15),
+              decoration: BoxDecoration(
+                color: Colors.orange.shade100,
+                borderRadius: BorderRadius.circular(10),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black12,
+                    blurRadius: 5,
+                    spreadRadius: 2,
+                  ),
+                ],
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  donationRow("📅 Date:", donation["date"]!),
+                  donationRow("🍽 Serves:", donation["serves"]!),
+                  donationRow("🥗 Category:", donation["category"]!),
+                  donationRow("📝 Description:", donation["description"]!),
+                  donationRow("✅ Confirmed by:", donation["confirmedBy"]!),
+                ],
               ),
             ),
-          ),
-          Expanded(
-            child: donations.isNotEmpty
-                ? ListView.builder(
-                    itemCount: donations.length,
-                    itemBuilder: (context, index) {
-                      final donation = donations[index];
-                      return Card(
-                        color: Colors.amber.shade100,
-                        margin: EdgeInsets.all(10),
-                        child: Padding(
-                          padding: EdgeInsets.all(10),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              donationRow("Date:", donation["date"]!),
-                              donationRow("Serves:", donation["serves"]!),
-                              donationRow("Category:", donation["category"]!),
-                              donationRow("Description:", donation["description"]!),
-                              donationRow("Order Confirmed by:", donation["confirmedBy"]!),
-                            ],
-                          ),
-                        ),
-                      );
-                    },
-                  )
-                : Center(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          "No donations yet!",
-                          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                        ),
-                        SizedBox(height: 10),
-                        ElevatedButton(
-                          onPressed: () {},
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.black,
-                          ),
-                          child: Text("Donate Now", style: TextStyle(color: Colors.white)),
-                        ),
-                      ],
-                    ),
+            const SizedBox(height: 20),
+            Center(
+              child: ElevatedButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, '/donate_now');
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.black,
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 20,
+                    vertical: 12,
                   ),
-          ),
-        ],
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                ),
+                child: const Text(
+                  "Donate Now",
+                  style: TextStyle(color: Colors.white, fontSize: 16),
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
 
   Widget donationRow(String label, String value) {
     return Padding(
-      padding: EdgeInsets.symmetric(vertical: 2),
+      padding: const EdgeInsets.symmetric(vertical: 6),
       child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
             label,
-            style: TextStyle(fontWeight: FontWeight.bold),
+            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
           ),
-          SizedBox(width: 5),
+          const SizedBox(width: 5),
           Expanded(
-            child: Text(value, softWrap: true),
+            child: Text(
+              value,
+              softWrap: true,
+              style: const TextStyle(fontSize: 16),
+            ),
           ),
         ],
       ),

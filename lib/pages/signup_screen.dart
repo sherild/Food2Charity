@@ -1,19 +1,5 @@
 import 'package:flutter/material.dart';
 
-void main() {
-  runApp(MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: SignUpScreen(),
-    );
-  }
-}
-
 class SignUpScreen extends StatefulWidget {
   @override
   _SignUpScreenState createState() => _SignUpScreenState();
@@ -26,17 +12,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage("assets/background.jpg"),
-            fit: BoxFit.cover,
-          ),
-        ),
+      body: SingleChildScrollView(
+        // Fix: Scrollable banaya
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 20),
+          padding: EdgeInsets.symmetric(horizontal: 20, vertical: 40),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center, // Centered items
             children: [
               TextField(
                 decoration: InputDecoration(
@@ -54,7 +36,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   border: OutlineInputBorder(),
                   suffixIcon: IconButton(
                     icon: Icon(
-                      _obscurePassword ? Icons.visibility_off : Icons.visibility,
+                      _obscurePassword
+                          ? Icons.visibility_off
+                          : Icons.visibility,
                     ),
                     onPressed: () {
                       setState(() {
@@ -73,7 +57,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   border: OutlineInputBorder(),
                   suffixIcon: IconButton(
                     icon: Icon(
-                      _obscureConfirmPassword ? Icons.visibility_off : Icons.visibility,
+                      _obscureConfirmPassword
+                          ? Icons.visibility_off
+                          : Icons.visibility,
                     ),
                     onPressed: () {
                       setState(() {
@@ -88,30 +74,66 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   ElevatedButton(
-                    style: ElevatedButton.styleFrom(backgroundColor: Colors.black),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.black,
+                    ),
                     onPressed: () {
+                      Navigator.pushNamed(context, '/start_receiving');
                       // Navigate to Start Receiving Screen
                     },
                     child: Column(
                       children: [
                         Text("Sign Up", style: TextStyle(color: Colors.white)),
-                        Text("Start Receiving..", style: TextStyle(color: Colors.white70)),
+                        Text(
+                          "Start Receiving..",
+                          style: TextStyle(color: Colors.white70),
+                        ),
                       ],
                     ),
                   ),
                   ElevatedButton(
-                    style: ElevatedButton.styleFrom(backgroundColor: Colors.black),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.black,
+                    ),
                     onPressed: () {
+                      Navigator.pushNamed(context, '/start_donating');
                       // Navigate to Start Donating Screen
                     },
                     child: Column(
                       children: [
                         Text("Sign Up", style: TextStyle(color: Colors.white)),
-                        Text("Start Donating..", style: TextStyle(color: Colors.white70)),
+                        Text(
+                          "Start Donating..",
+                          style: TextStyle(color: Colors.white70),
+                        ),
                       ],
                     ),
                   ),
                 ],
+              ),
+              SizedBox(height: 20), // Fix: Space added
+              TextButton(
+                onPressed: () {
+                  Navigator.pushNamed(
+                    context,
+                    '/login',
+                  ); // Fix: Corrected route
+                },
+                style: TextButton.styleFrom(
+                  foregroundColor: Colors.black, // Fix: Color black so visible
+                ),
+                child: Column(
+                  children: [
+                    Text(
+                      "Already have an account?",
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    Text("Login here.", style: TextStyle(fontSize: 14)),
+                  ],
+                ),
               ),
             ],
           ),

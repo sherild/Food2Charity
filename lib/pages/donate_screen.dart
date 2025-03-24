@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 
 class DonateNowScreen extends StatefulWidget {
   @override
@@ -11,7 +10,7 @@ class _DonateNowScreenState extends State<DonateNowScreen> {
   TextEditingController contactController = TextEditingController();
   TextEditingController descriptionController = TextEditingController();
   TextEditingController addressController = TextEditingController();
-  
+
   String? selectedDate;
   String? selectedTime;
   bool isVeg = false;
@@ -26,11 +25,11 @@ class _DonateNowScreenState extends State<DonateNowScreen> {
       lastDate: DateTime(2100),
     );
 
-    if (pickedDate != null) {
-      setState(() {
-        selectedDate = DateFormat('yyyy-MM-dd').format(pickedDate);
-      });
-    }
+    // if (pickedDate != null) {
+    //   setState(() {
+    //     selectedDate = DateFormat('yyyy-MM-dd').format(pickedDate);
+    //   });
+    // }
   }
 
   // Time Picker Function
@@ -63,11 +62,12 @@ class _DonateNowScreenState extends State<DonateNowScreen> {
     print("Date: $selectedDate");
     print("Time: $selectedTime");
     print("Food Type: ${isVeg ? "Veg" : ""} ${isNonVeg ? "Non-Veg" : ""}");
+    Navigator.pushNamed(context, '/donate');
 
     // Navigate to the next screen
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text("Donation Submitted Successfully!")),
-    );
+    ScaffoldMessenger.of(
+      context,
+    ).showSnackBar(SnackBar(content: Text("Donation Submitted Successfully!")));
   }
 
   @override
@@ -108,8 +108,10 @@ class _DonateNowScreenState extends State<DonateNowScreen> {
                 Text("Set Date:", style: TextStyle(fontSize: 16)),
                 TextButton(
                   onPressed: () => _pickDate(context),
-                  child: Text(selectedDate ?? "Set a date",
-                      style: TextStyle(color: Colors.pink)),
+                  child: Text(
+                    selectedDate ?? "Set a date",
+                    style: TextStyle(color: Colors.pink),
+                  ),
                 ),
               ],
             ),
@@ -121,8 +123,10 @@ class _DonateNowScreenState extends State<DonateNowScreen> {
                 Text("Set Time:", style: TextStyle(fontSize: 16)),
                 TextButton(
                   onPressed: () => _pickTime(context),
-                  child: Text(selectedTime ?? "Set a time",
-                      style: TextStyle(color: Colors.pink)),
+                  child: Text(
+                    selectedTime ?? "Set a time",
+                    style: TextStyle(color: Colors.pink),
+                  ),
                 ),
               ],
             ),
@@ -161,8 +165,10 @@ class _DonateNowScreenState extends State<DonateNowScreen> {
             if (!isVeg && !isNonVeg)
               Padding(
                 padding: const EdgeInsets.only(top: 5),
-                child: Text("Select any ONE checkbox",
-                    style: TextStyle(color: Colors.red, fontSize: 12)),
+                child: Text(
+                  "Select any ONE checkbox",
+                  style: TextStyle(color: Colors.red, fontSize: 12),
+                ),
               ),
 
             SizedBox(height: 20),
